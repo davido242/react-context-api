@@ -7,7 +7,6 @@ import {
   CLEAR
 } from './CartTypes';
 
-// Export function to calculate the total price of the cart and the total quantity of the cart
 export const sumItems = (cartItems) => {
   Storage(cartItems);
 
@@ -59,5 +58,15 @@ const cartReducer = (state, action) => {
           ...sumItems(state.cartItems),
           cartItems: [...state.cartItems],
         };
+
+        case DECREASE:
+          state.cartItems[
+            state.cartItems.findIndex((item) => item.id === action.payload.id)
+          ].quantity--;
+          return {
+            ...state,
+            ...sumItems(state.cartItems),
+            cartItems: [...state.cartItems]
+          }
   }
 }
