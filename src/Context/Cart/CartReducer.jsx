@@ -45,7 +45,7 @@ const cartReducer = (state, action) => {
         ...sumItems(
           state.cartItems.filter((item) => item.id !== action.payload.id)),
           cartItems: [
-            ...state.cartItems.filter((item) => item.id !== action),
+            ...state.cartItems.filter((item) => item.id !== action.payload.id),
           ],
       }
 
@@ -87,4 +87,4 @@ const cartReducer = (state, action) => {
   }
 };
 
-module.export = cartReducer;
+module.exports = cartReducer;
