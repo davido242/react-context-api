@@ -21,15 +21,15 @@ export const sumItems = (cartItems) => {
     .reduce((total, product) => total + product.price * product.quantity, 0)
     .toFixed(2);
 
-    return { itemCount, total };
+  return { itemCount, total };
 };
 
 const cartReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ADD_TO_CART:
-      if(!state.cartItems.find((item) => item.id === action.payload.id)) {
+      if (!state.cartItems.find((item) => item.id === action.payload.id)) {
         state.cartItems.push({
-          ...action.payload, 
+          ...action.payload,
           quantity: 1
         });
       }
@@ -39,6 +39,16 @@ const cartReducer = (state, action) => {
         ...sumItems(state.cartItems),
         cartItems: [state.cartItems],
       };
+
+    case REMOVE_ITEM:
+      return {
+        ...state,
+        ...sumItems(
+          state.cartItems.filter((item) => item.id !== action.payload.id)),
+          cartItems: [
+            ...state.cartItems.filter((item) => item.id !== action),
+          ],
+      }
+      
   }
 }
-
